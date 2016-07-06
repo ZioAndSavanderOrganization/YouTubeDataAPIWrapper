@@ -12,12 +12,12 @@ class Channel extends YouTubeFactory{
      */
     private $CSnippetTitle;
     private $CSnippetDescription;
-    private $CSnippetCustomUrl;
+    private $CSnippetCustomUrl = false;
     private $CSnippetPublishedAt;
     private $CSnippetAvatars = array();
     private $CSnippetBanner;
-    private $CSnippetCountry;
-    private $CSnippetKeywords;
+    private $CSnippetCountry = false;
+    private $CSnippetKeywords = false;
 
     /**
      * Channel.list.statistics
@@ -55,8 +55,6 @@ class Channel extends YouTubeFactory{
         $this->CSnippetBanner                   =  	$apiRequest['items'][0]['brandingSettings']['image']['bannerImageUrl'];
         if(isset($apiRequest['items'][0]['brandingSettings']['keywords']))
             $this->CSnippetKeywords             =  	$apiRequest['items'][0]['brandingSettings']['keywords'];
-        else
-            $this->CSnippetKeywords             =   false;
         $this->CStatsSubsCount 	                = 	$apiRequest['items'][0]['statistics']['subscriberCount'];
         $this->CStatsSubsHidden 	            = 	$apiRequest['items'][0]['statistics']['hiddenSubscriberCount'];
         $this->CStatsViewCount   		        = 	$apiRequest['items'][0]['statistics']['viewCount'];
@@ -64,12 +62,8 @@ class Channel extends YouTubeFactory{
         $this->CStatsCommentCount 		        =	$apiRequest['items'][0]['statistics']['commentCount'];
         if(isset($apiRequest['items'][0]['snippet']['country']))
             $this->CSnippetCountry              =   $apiRequest['items'][0]['snippet']['country'];
-        else
-            $this->CSnippetCountry              =   false;
         if(isset($apiRequest['items'][0]['snippet']['customUrl']))
             $this->CSnippetCustomUrl            =   $apiRequest['items'][0]['snippet']['customUrl'];
-        else
-            $this->CSnippetCustomUrl            =   false;
     }
 
     /**

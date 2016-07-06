@@ -25,7 +25,7 @@ class Video extends YouTubeFactory{
     private $VSnippetTitle;
     private $VSnippetDescription;
     private $VSnippetThumbnails = array();
-    private $VSnippetTags = array();
+    private $VSnippetTags = false;
     private $VSnippetPublishedAt;
 
 
@@ -48,9 +48,10 @@ class Video extends YouTubeFactory{
     {
         $apiRequest = json_decode(file_get_contents("https://www.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&fields=items(id%2Csnippet(description%2CpublishedAt%2Ctags%2Cthumbnails(default%2Chigh%2Cmedium)%2Ctitle)%2Cstatistics)%2CpageInfo%2FtotalResults&id=" .$this->VideoID. "&key=" . parent::getKey()) ,true);
 
-        $this->VSnippetDescription	                = 	$apiRequest['items'][0]['snippet']['description'];
+        $this->VSnippetDescription	                = 	nl2br($apiRequest['items'][0]['snippet']['description']);
         $this->VSnippetTitle    	                = 	$apiRequest['items'][0]['snippet']['title'];
-        $this->VSnippetTags     	                = 	$apiRequest['items'][0]['snippet']['tags'];
+        if(isset($apiRequest['items'][0]['snippet']['tags']))
+            $this->VSnippetTags     	            = 	$apiRequest['items'][0]['snippet']['tags'];
         $this->VSnippetThumbnails['default'] 	    =  	$apiRequest['items'][0]['snippet']['thumbnails']['default']['url'];
         $this->VSnippetThumbnails['medium']         =  	$apiRequest['items'][0]['snippet']['thumbnails']['medium']['url'];
         $this->VSnippetThumbnails['high']           =  	$apiRequest['items'][0]['snippet']['thumbnails']['high']['url'];
