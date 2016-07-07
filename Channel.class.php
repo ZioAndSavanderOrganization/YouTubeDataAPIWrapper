@@ -266,7 +266,7 @@ class Channel extends YouTubeFactory{
 
 
     /**
-     * Return ID of latest video
+     * Return ID of latest video.
      * @return mixed
      */
     public function getLatestVideoId()
@@ -278,5 +278,6 @@ class Channel extends YouTubeFactory{
             }
     }
 }
+
 
 
